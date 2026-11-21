@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>穴盘出芽随访 · 补种 / 换盘 / 清点演示</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>穴盘出芽随访演示</h1>
+        <p class="sub">
+          虚构数据（可复现）：8 个穴盘 × 6 孔，含补种、中途换盘、整盘废弃与两轮清点。
+        </p>
+      </div>
+      <div class="seedbox">
+        <label for="seed">随机种子</label>
+        <input id="seed" value="tray-2026" maxlength="64" spellcheck="false" />
+        <button id="reset" class="ghost" type="button">重置换种子</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="steps">
+        <button id="btn-first" type="button" class="primary">生成第一版随访</button>
+        <button id="btn-archive" type="button">补录托盘清点</button>
+        <button id="btn-denominators" type="button">查看出芽分母</button>
+        <span id="stage-badge" class="badge">尚未生成</span>
+      </section>
+
+      <p id="error" class="error" role="alert" hidden></p>
+
+      <section
+        id="evidence"
+        class="evidence"
+        data-evidence-result="stage=idle"
+        aria-live="polite"
+      >
+        <div class="evidence-head">
+          <strong>业务结果区</strong>
+          <span class="hint">核对操作前后的 data-evidence-result</span>
+        </div>
+        <p id="evidence-text">尚未运行。点击「生成第一版随访」开始。</p>
+      </section>
+
+      <section id="report-root" class="report" hidden>
+        <div class="cards" id="summary-cards"></div>
+
+        <h2>各轮清点口径</h2>
+        <p class="hint">
+          “未出芽”是确实看到该孔没有芽；“未观察到”是该轮没有可用清点记录。两者分开计数，均不进分母。
+        </p>
+        <div class="table-wrap"><table id="look-table"></table></div>
+
+        <h2>配对盘对照</h2>
+        <p class="hint">同一配对的对照盘与处理盘逐轮比较，分母为可评估孔位（出芽 + 未出芽）。</p>
+        <div class="table-wrap"><table id="pair-table"></table></div>
+
+        <h2>每孔随访</h2>
+        <p class="hint">
+          逐孔列出各轮状态、换盘/废弃截断点、第一次出芽所归属的“当时批次”。点行可展开观察明细。
+        </p>
+        <div class="table-wrap"><table id="specimen-table"></table></div>
+
+        <h2 id="changes-title">补录后改变结论的样本</h2>
+        <div id="changes"></div>
+      </section>
+
+      <section id="denominator-root" class="report" hidden>
+        <h2>出芽分母</h2>
+        <div id="denominator-body"></div>
+      </section>
+
+      <section id="anomaly-root" class="report" hidden>
+        <h2>接入整理发现的问题</h2>
+        <div class="table-wrap"><table id="anomaly-table"></table></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Node.js 内置模块 · 绑定 127.0.0.1 · 读取 PORT</span>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
